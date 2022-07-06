@@ -8,8 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import fr.fms.dao.CityRepository;
+import fr.fms.dao.MovieRepository;
 import fr.fms.dao.TheaterRepository;
 import fr.fms.entities.City;
+import fr.fms.entities.Movie;
 import fr.fms.entities.Theater;
 
 @Service
@@ -20,6 +22,9 @@ public class IBusinessImpl implements IBusiness {
 	
 	@Autowired
 	TheaterRepository theaterRepository;
+	
+	@Autowired
+	MovieRepository movieRepository;
 	
 	@Override
 	public List<City> getAllCities() throws Exception {
@@ -54,6 +59,17 @@ public class IBusinessImpl implements IBusiness {
 	@Override
 	public void saveCity(City city) throws Exception {
 		cityRepository.save(city);
+	}
+
+	@Override
+	public Page<Movie> getAllMoviesPage(int page) throws Exception {
+		return movieRepository.findAll(PageRequest.of(page -1, 8));
+	}
+
+	@Override
+	public Page<Movie> getAllMoviesByTheater(long theaterId, int page) throws Exception {
+//		return movieRepository.findByTheater(theaterId, PageRequest.of(page -1, 8));
+		return null;
 	}
 
 

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${title}"></title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="container mt-5">
+		<div>
+			<div class="col-6 mb-3">
+				<h1 th:text="${title}"></h1>
+			</div>
+
+			<div class="mt-4" th:if="${movies.empty}">
+				N/A
+			</div>
+			<div class="row">
+				<div class="col-sm-3 mb-3" th:each="movie:${movies}">
+					<div class="card h-100">
+						<img th:src="@{/img/}+${movie.poster}" class="card-img-top">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${movie.title}"></h5>
+							<p class="card-text">Duration : <span th:text="${movie.duration}"></span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<nav aria-label="Page navigation example">
+				<ul class="pagination pagination-sm">
+					<li class="page-item" th:class="${currentPage == status.index+1 ? 'active' : ''}"
+						th:each="page, status:${pages}">
+						<a class="page-link" th:href="@{/movies(page=${status.index+1})}"
+							th:text="${status.index+1}"></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</body>
+
+</html>

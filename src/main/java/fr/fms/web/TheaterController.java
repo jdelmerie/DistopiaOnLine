@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.fms.business.IBusinessImpl;
 import fr.fms.entities.City;
+import fr.fms.entities.Movie;
 import fr.fms.entities.Theater;
 
 @Controller
@@ -105,13 +106,21 @@ public class TheaterController {
 	}
 
 	@GetMapping("/theater")
-	public String theater(@RequestParam(name = "id", defaultValue = "0") long theaterId, Model model) {
-//		try {
-//			System.out.println(iBusinessImpl.getOneTheater(theaterId).toString());
-//			model.addAttribute("title", "All Dispotia's theaters");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		return "theater";
+	public String theater(@RequestParam(name = "theaterId", defaultValue = "0") long theaterId,
+			@RequestParam(name = "page", defaultValue = "1") int page, Model model) {
+
+		Theater theater = null;
+		List<Movie> movies = null;
+
+		try {
+			theater = iBusinessImpl.getOneTheater(theaterId);
+			movies = (List<Movie>) theater.getMovies();
+			model.addAttribute("movies", movies);
+			model.addAttribute("title", "Movies available in " + theater.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "moviesTheater";
 	}
 }

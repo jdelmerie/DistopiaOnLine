@@ -1,8 +1,7 @@
 package fr.fms.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,6 +46,14 @@ public class Movie implements Serializable {
 	@NotBlank
 	private String duration;
 	
-	@ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER)
-	private List<Theater> theaters =  new ArrayList<>();
+	@ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY)
+	private Collection<Theater> theaters;
+
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", title=" + title + ", description=" + description + ", poster=" + poster
+				+ ", duration=" + duration + ", theaters=" + theaters + "]";
+	}
+	
+	
 }

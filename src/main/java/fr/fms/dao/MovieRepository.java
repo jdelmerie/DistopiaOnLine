@@ -6,4 +6,5 @@ import fr.fms.entities.Movie;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
+
 }

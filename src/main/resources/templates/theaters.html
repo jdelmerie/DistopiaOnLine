@@ -10,7 +10,7 @@
 <body>
 	<div layout:fragment="content" class="container mt-5">
 		<div>
-			<div class="row">
+			<div class="row mb-3">
 				<div class="col-6">
 					<h1>Theaters</h1>
 				</div>
@@ -33,6 +33,9 @@
 				</li>
 			</ul>
 
+			<div class="mt-4" th:if="${theaters.empty}">
+				N/A
+			</div>
 			<div class="card mb-2" th:each="theater:${theaters}">
 				<div class="card-body">
 					<h3 class="card-title" th:text="${theater.name}"></h3>
@@ -41,7 +44,7 @@
 						<span th:text="${theater.city.zipcode} + ' ' + ${theater.city.name}"></span>
 					</p>
 					<p class="card-text">Rooms : <span th:text=${theater.numberOfRooms}></span></p>
-					<a th:href="@{/theater(id=${theater.id}) }" class="btn btn-primary btn-sm">Select</a>
+					<a th:href="@{/theater(theaterId=${theater.id}) }" class="btn btn-primary btn-sm">Select</a>
 				</div>
 			</div>
 
@@ -67,7 +70,8 @@
 				<ul class="pagination pagination-sm">
 					<li class="page-item" th:class="${currentPage == status.index+1 ? 'active' : ''}"
 						th:each="page, status:${pages}">
-						<a class="page-link" th:href="@{/theaters(page=${status.index+1}, search=${search}, cityId=${cityId})}"
+						<a class="page-link"
+							th:href="@{/theaters(page=${status.index+1}, search=${search}, cityId=${cityId})}"
 							th:text="${status.index+1}"></a>
 					</li>
 				</ul>
