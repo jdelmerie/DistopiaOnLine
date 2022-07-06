@@ -51,6 +51,11 @@ public class IBusinessImpl implements IBusiness {
 		return theaterRepository.getById(id);
 	}
 
+	@Override
+	public void saveCity(City city) throws Exception {
+		cityRepository.save(city);
+	}
+
 
 
 

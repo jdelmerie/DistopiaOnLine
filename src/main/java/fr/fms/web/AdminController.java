@@ -2,19 +2,12 @@ package fr.fms.web;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.fms.business.IBusinessImpl;
 import fr.fms.entities.City;
@@ -33,7 +26,6 @@ public class AdminController {
 		try {
 			theaters = iBusinessImpl.getTheatersPages(search, page);
 			model.addAttribute("title", "All Dispotia's theaters");
-
 			List<City> cities = iBusinessImpl.getAllCities();
 			model.addAttribute("cities", cities);
 			model.addAttribute("theaters", theaters);
@@ -46,72 +38,4 @@ public class AdminController {
 		}
 		return "admin";
 	}
-
-	@PostMapping("/saveTheater")
-	public String saveTheater(Model model, @Valid Theater theater, BindingResult bindingResult,
-			RedirectAttributes attributes) {
-
-		List<City> cities;
-		try {
-
-			if (bindingResult.hasErrors()) {
-				cities = iBusinessImpl.getAllCities();
-				model.addAttribute("cities", cities);
-				return "formTheater";
-			}
-			iBusinessImpl.saveTheater(theater);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-//		attributes.addFlashAttribute("success", "Theater well saved");
-		return "redirect:/admin";
-	}
-
-	@GetMapping("/admin/theater")
-	public String theater(Model model) {
-		List<City> cities;
-		try {
-			cities = iBusinessImpl.getAllCities();
-			model.addAttribute("add", true);
-			model.addAttribute("title", "Add a new theater");
-			model.addAttribute("cities", cities);
-			model.addAttribute("theater", new Theater());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "formTheater";
-	}
-
-	@GetMapping("/admin/theater/edit/{id}")
-	public String edit(Model model, @PathVariable(name = "id") long id) {
-
-		try {
-			List<City> cities = iBusinessImpl.getAllCities();
-			Theater theater = iBusinessImpl.getOneTheater(id);
-			model.addAttribute("add", false);
-			model.addAttribute("edit", true);
-			model.addAttribute("title", "Edit this theater");
-			model.addAttribute("theater", theater);
-			model.addAttribute("cities", cities);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "formTheater";
-	}
-
-//	@GetMapping("/admin/cities")
-//	public String cities(Model model) {
-//		List<City> cities;
-//		try {
-//			cities = iBusinessImpl.getAllCities();
-//			model.addAttribute("cities", cities);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "cities";
-//	}
-
 }

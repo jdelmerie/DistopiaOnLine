@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${title}"></title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="container mt-5">
+		<ul class="nav nav-pills nav-fill" sec:authorize="hasRole('ADMIN')">
+			<li class="nav-item pe-2">
+				<a class="nav-link" th:href="@{/admin}">Theaters</a>
+			</li>
+			<li class="nav-item pe-2">
+				<a class="nav-link active" th:href="@{/admin/cities}">Cities</a>
+			</li>
+			<li class="nav-item pe-2">
+				<a class="nav-link" href="#">Movies</a>
+			</li>
+		</ul>
+
+		<div class="mt-5">
+
+			<h2 class="mb-3" th:text="${title}"></h2>
+			<div class="col-md-6">
+				<form th:action="@{/saveCity}" method="post">
+					<input type="hidden" class="form-control" id="id" name="id" th:value="${city.id}">
+					<div class="mb-3">
+						<label for="name" class="form-label">Name</label>
+						<input type="text" class="form-control" id="name" name="name" th:value="${city.name}">
+						<span class="text-danger" th:errors="${city.name}"></span>
+					</div>
+					<div class="mb-3">
+						<label for="zipcode" class="form-label">Zipcode</label>
+						<input type="text" class="form-control" id="zipcode" name="zipcode" th:value="${city.zipcode}">
+						<span class="text-danger" th:errors="${city.zipcode}"></span>
+					</div>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</form>
+			</div>
+
+		</div>
+</body>
+
+</html>

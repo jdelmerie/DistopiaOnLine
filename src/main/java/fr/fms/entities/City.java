@@ -29,12 +29,12 @@ public class City implements Serializable {
 
 	@NotNull
 	@NotBlank
-	@Size(min = 2)
+	@Size(min = 2, max = 100)
 	private String name;
 	
 	@NotNull
 	@NotBlank
-	@Size(min = 5)
+	@Size(min = 5, max = 5)
 	private String zipcode;
 	
 	@OneToMany(mappedBy = "city")

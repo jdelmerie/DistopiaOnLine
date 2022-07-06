@@ -11,10 +11,10 @@
 	<div layout:fragment="content" class="container mt-5">
 		<ul class="nav nav-pills nav-fill" sec:authorize="hasRole('ADMIN')">
 			<li class="nav-item pe-2">
-				<a class="nav-link active" th:href="@{/admin}">Theaters</a>
+				<a class="nav-link" th:href="@{/admin}">Theaters</a>
 			</li>
 			<li class="nav-item pe-2">
-				<a class="nav-link" th:href="@{/admin/cities}">Cities</a>
+				<a class="nav-link active" th:href="@{/admin/cities}">Cities</a>
 			</li>
 			<li class="nav-item pe-2">
 				<a class="nav-link" href="#">Movies</a>
@@ -27,28 +27,24 @@
 				<div class="col-10">
 					<h2 class="mb-3" th:text="${title}"></h2>
 				</div>
-				<div class="col-2"><a th:href="@{admin/theater}" class="btn btn-primary btn-sm">Add a theater</a></div>
+				<div class="col-2"><a th:href="@{/admin/city}" class="btn btn-primary btn-sm">Add a city</a></div>
 			</div>
 			<table class="table">
 				<thead class="table-dark">
 					<tr>
-						<th scope="col" class="text-center"></th>
+					<th scope="col"></th>
 						<th scope="col">Name</th>
-						<th scope="col">Address</th>
-						<th scope="col">City</th>
-						<th scope="col" class="text-center">N° Rooms</th>
+						<th scope="col">Zipcode</th>
 						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="theater:${theaters}">
-						<th scope="col" class="text-center" th:text="${theater.id}"></th>
-						<td th:text="${theater.name}"></td>
-						<td th:text="${theater.address}"></td>
-						<td th:text="${theater.city.name}">></td>
-						<td th:text=${theater.numberOfRooms} class="text-center"></td>
+					<tr th:each="city:${cities}">
+						<th scope="col" class="text-center" th:text="${city.id}"></th>
+						<td th:text="${city.name}"></td>
+						<td th:text="${city.zipcode}"></td>
 						<td class="text-center">
-							<a th:href="@{'/admin/theater/edit/' + ${theater.id}}" class="btn btn-sm btn-warning"><i
+							<a th:href="@{'/admin/city/edit/' + ${city.id}}" class="btn btn-sm btn-warning"><i
 									class="far fa-edit"></i></a>
 							<a href="" class="btn btn-sm btn-danger disabled"><i class="far fa-trash-alt"></i></a>
 						</td>
@@ -60,7 +56,7 @@
 				<ul class="pagination pagination-sm">
 					<li class="page-item" th:class="${currentPage == status.index+1 ? 'active' : ''}"
 						th:each="page, status:${pages}">
-						<a class="page-link" th:href="@{/admin(page=${status.index+1}, search=${search})}"
+						<a class="page-link" th:href="@{/admin/cities(page=${status.index+1}, search=${search})}"
 							th:text="${status.index+1}"></a>
 					</li>
 				</ul>

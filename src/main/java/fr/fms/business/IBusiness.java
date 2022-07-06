@@ -20,5 +20,7 @@ public interface IBusiness {
 	
 	public void saveTheater(Theater theater) throws Exception;
 	
+	public void saveCity(City city) throws Exception;
+	
 	public Theater getOneTheater(long id) throws Exception;
 }
