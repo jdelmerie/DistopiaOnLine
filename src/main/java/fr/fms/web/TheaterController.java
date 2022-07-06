@@ -36,7 +36,6 @@ public class TheaterController {
 			}
 
 			List<City> cities = iBusinessImpl.getAllCities();
-			model.addAttribute("menuName", "cities");
 			model.addAttribute("cities", cities);
 			model.addAttribute("theaters", theaters);
 			model.addAttribute("pages", new int[theaters.getTotalPages()]);
@@ -54,5 +53,16 @@ public class TheaterController {
 		City city = iBusinessImpl.getCity(cityId);
 		model.addAttribute("cityId", city.getId());
 		return "redirect:/theaters?cityId=" + cityId;
+	}
+	
+	@GetMapping("/theater")
+	public String theater(@RequestParam(name = "id", defaultValue = "0") long theaterId, Model model) {
+//		try {
+//			System.out.println(iBusinessImpl.getOneTheater(theaterId).toString());
+//			model.addAttribute("title", "All Dispotia's theaters");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		return "theater";
 	}
 }

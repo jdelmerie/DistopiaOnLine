@@ -41,7 +41,7 @@
 						<span th:text="${theater.city.zipcode} + ' ' + ${theater.city.name}"></span>
 					</p>
 					<p class="card-text">Rooms : <span th:text=${theater.numberOfRooms}></span></p>
-					<a href="#" class="btn btn-primary btn-sm">Select</a>
+					<a th:href="@{/theater(id=${theater.id}) }" class="btn btn-primary btn-sm">Select</a>
 				</div>
 			</div>
 

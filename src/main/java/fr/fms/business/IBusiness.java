@@ -11,10 +11,10 @@ import fr.fms.entities.Theater;
 @Service
 public interface IBusiness {
 	public List<City> getAllCities() throws Exception;
-	
+
 	public Page<Theater> getTheatersPages(String search, int page) throws Exception;
-	
+
 	public Page<Theater> getTheatersPagesByCity(long cityId, int page) throws Exception;
 	
-	public City getCity(long id) ;
+	public City getCity(long id);
 }

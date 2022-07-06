@@ -7,7 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -18,7 +20,10 @@ public class MainController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(@RequestParam(name = "error", defaultValue = "false") Boolean error, Model model) {
+		if(error) {
+			model.addAttribute("error", true);
+		} 
 		return "login";
 	}
 	

@@ -1,12 +1,16 @@
 package fr.fms.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
@@ -47,5 +51,16 @@ public class Theater implements Serializable {
 	
 	@OneToMany(mappedBy = "theater")
 	private List<Room> rooms; //un ciné est liée à plusieurs salles
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Movie> movies =  new ArrayList<>();
+
+	@Override
+	public String toString() {
+		return "Theater [id=" + id + ", name=" + name + ", address=" + address + ", numberOfRooms=" + numberOfRooms
+				+ ", city=" + city + ", rooms=" + rooms + ", movies=" + movies + "]";
+	}
+	
+	
 	
 }

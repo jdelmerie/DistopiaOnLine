@@ -20,19 +20,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	DataSource dataSource;
 
 	String usersByUsernameQuery = "select email, password, enable from users where email = ?";
-	String authoritiesByUsernameQuery = "SELECT u.email, r.name from users AS u LEFT JOIN users_roles ur ON u.user_id = ur.users_user_id LEFT JOIN role r ON ur.roles_role_id = r.role_id where email = ?";
+	String authoritiesByUsernameQuery = "SELECT u.email, r.name from users AS u \r\n"
+			+ "INNER JOIN users_roles ur ON u.id = ur.users_id \r\n" + "INNER JOIN role r ON ur.roles_id = r.id \r\n"
+			+ "where email = ?";
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		PasswordEncoder passwordEncoder = passwordEncoder();
-		auth.inMemoryAuthentication().withUser("j.delmerie@live.fr").password(passwordEncoder.encode("1234"))
-				.roles("ADMIN", "USER");
-		auth.inMemoryAuthentication().withUser("mama@live.fr").password(passwordEncoder.encode("1234")).roles("USER");
-		auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder());
-
-//		auth.jdbcAuthentication().dataSource(dataSource)
-//				.usersByUsernameQuery(usersByUsernameQuery)
-//				.authoritiesByUsernameQuery(authoritiesByUsernameQuery).rolePrefix("ROLE_").passwordEncoder(passwordEncoder);
+		auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(usersByUsernameQuery)
+				.authoritiesByUsernameQuery(authoritiesByUsernameQuery).rolePrefix("ROLE_")
+				.passwordEncoder(passwordEncoder);
 	}
 
 	@Bean
@@ -42,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.formLogin().loginPage("/login").defaultSuccessUrl("/");
+		http.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error=true");
 		http.authorizeRequests().antMatchers("/").permitAll();
 //		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN");
 		http.exceptionHandling().accessDeniedPage("/403");
