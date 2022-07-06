@@ -41,6 +41,16 @@ public class IBusinessImpl implements IBusiness {
 		return cityRepository.getById(id);
 	}
 
+	@Override
+	public void saveTheater(Theater theater) throws Exception {
+		theaterRepository.save(theater);
+	}
+
+	@Override
+	public Theater getOneTheater(long id) throws Exception {
+		return theaterRepository.getById(id);
+	}
+
 
 
 

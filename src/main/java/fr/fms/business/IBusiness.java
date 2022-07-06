@@ -17,4 +17,8 @@ public interface IBusiness {
 	public Page<Theater> getTheatersPagesByCity(long cityId, int page) throws Exception;
 	
 	public City getCity(long id);
+	
+	public void saveTheater(Theater theater) throws Exception;
+	
+	public Theater getOneTheater(long id) throws Exception;
 }

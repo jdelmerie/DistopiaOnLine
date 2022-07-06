@@ -35,18 +35,20 @@ public class Theater implements Serializable {
 
 	@NotNull
 	@NotBlank
-	@Size(min = 2)
+	@Size(min = 2, max = 100)
 	private String name;
 	
 	@NotNull
 	@NotBlank
-	@Size(min = 5)
+	@Size(min = 5, max = 100)
 	private String address;
 	
 	@DecimalMin("1")
-	private int numberOfRooms;
+	@NotNull
+	private int numberOfRooms = 1;
 	
 	@ManyToOne
+	@NotNull
 	private City city; //plusieurs ciné sont reliés à une seule ville
 	
 	@OneToMany(mappedBy = "theater")

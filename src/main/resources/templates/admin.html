@@ -11,23 +11,23 @@
 	<div layout:fragment="content" class="container mt-5">
 		<ul class="nav nav-pills nav-fill" sec:authorize="hasRole('ADMIN')">
 			<li class="nav-item pe-2">
-				<a class="nav-link" th:href="@{admin}">Theaters</a>
+				<a class="nav-link active" th:href="@{/admin}">Theaters</a>
 			</li>
 			<li class="nav-item pe-2">
-				<a class="nav-link active" th:href="@{admin/cities}">Cities</a>
+				<a class="nav-link" th:href="@{admin/cities}">Cities</a>
 			</li>
 			<li class="nav-item pe-2">
 				<a class="nav-link" href="#">Movies</a>
 			</li>
 		</ul>
 
-		<div class="mt-3">
+		<div class="mt-5">
 
 			<div class="row">
-				<div class="col-8">
+				<div class="col-10">
 					<h2 class="mb-3" th:text="${title}"></h2>
 				</div>
-				<div class="col-4"><a href="" class="btn btn-primary">Ajouter</a></div>
+				<div class="col-2"><a th:href="@{admin/theater}" class="btn btn-primary btn-sm">Add a theater</a></div>
 			</div>
 			<table class="table">
 				<thead class="table-dark">
@@ -46,8 +46,8 @@
 						<td th:text="${theater.city.name}">></td>
 						<td th:text=${theater.numberOfRooms} class="text-center"></td>
 						<td class="text-center">
-							<a href=""
-								class="btn btn-sm btn-warning"><i class="far fa-edit"></i></a>
+							<a th:href="@{'/admin/theater/edit/' + ${theater.id}}" class="btn btn-sm btn-warning"><i
+									class="far fa-edit"></i></a>
 							<a href="" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
