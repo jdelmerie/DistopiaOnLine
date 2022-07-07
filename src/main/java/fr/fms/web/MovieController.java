@@ -65,25 +65,21 @@ public class MovieController {
 			model.addAttribute("theaters", theaters);
 			model.addAttribute("movie", movie);
 		} catch (Exception e) {
-			e.printStackTrace();
+			model.addAttribute("error",e.getMessage());
 		}
 		return "addToTheater";
 	}
 
 	@PostMapping("/addMovieToTheaters")
 	public String addMovieToTheaters(@RequestParam(name = "movieId", defaultValue = "0") long movieId,
-			@RequestParam(name = "theaterId", defaultValue = "0") long theaterId, Model model) {
+			@RequestParam(name = "theaterId", defaultValue = "0") long theaterId, Model model,
+			RedirectAttributes redirectAttributes) {
 		try {
-			Theater theater = iBusinessImpl.getOneTheater(theaterId);
-			Movie movie = iBusinessImpl.getOneMovie(movieId);
-			movie.getTheaters().add(theater);
-			theater.getMovies().add(movie);
-			iBusinessImpl.saveMovie(movie);
-
+			iBusinessImpl.checkMovieTheaters(movieId, theaterId);
 		} catch (Exception e) {
-			e.printStackTrace();
+			redirectAttributes.addAttribute("error", e.getMessage());
 		}
-		return "redirect:/admin/movies";
+		return "redirect:/admin/movie/addTheater/" + movieId;
 	}
 
 	@GetMapping("/admin/movie/add")
@@ -125,8 +121,8 @@ public class MovieController {
 		try {
 			iBusinessImpl.deleteMovie(id);
 		} catch (Exception e) {
-			redirectAttrs.addAttribute("error",e.getMessage());
-		}	
+			redirectAttrs.addAttribute("error", e.getMessage());
+		}
 		return "redirect:/admin/movies?page=" + page;
 	}
 }

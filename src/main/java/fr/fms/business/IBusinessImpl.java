@@ -91,30 +91,19 @@ public class IBusinessImpl implements IBusiness {
 		movieRepository.deleteById(id);
 	}
 
-//	public boolean addMovieToTheater(long movieId, long theaterId) {
-//		
-////		Theater theater = iBusinessImpl.getOneTheater(id);
-//	
-////		theater.getMovies().add(movie);
-////		iBusinessImpl.saveTheater(theater);
-//		
-//		try {
-//			Movie movie = getOneMovie(movieId);
-//			Theater theater = getOneTheater(theaterId);
-//			theater.getMovies().forEach(testy -> {
-//				if (testy.getId() != movieId) {
-//					System.out.println("on peut ajouter");
-//				} else {
-//					System.out.println("film déjà mis");
-//				}
-//			});
-//			
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return false;
-//	}
-
+	public void checkMovieTheaters(long movieId, long theaterId) {
+		try {
+			Theater theater = getOneTheater(theaterId);
+			Movie movie = getOneMovie(movieId);
+			if (!movie.getTheaters().contains(theater)) {
+				movie.getTheaters().add(theater);
+				theater.getMovies().add(movie);
+				saveMovie(movie);
+			} else {
+				throw new RuntimeException("This movie is already added to this theater !");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

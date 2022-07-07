@@ -31,26 +31,28 @@
 					<p class="card-text">Duration : <span th:text="${movie.duration}"></span></p>
 					<p class="card-text" th:text="${movie.description}"></p>
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item" th:each="th:${movie.theaters}" th:text="${th.name}"></li>
+						<li class="list-group-item" th:each="theater:${movie.theaters}" th:text="${theater.name}"></li>
 					</ul>
 				</div>
 
 				<div class="mt-3">
 					<form th:action="@{/addMovieToTheaters}" method="post">
 						<input type="hidden" class="form-control" id="id" name="movieId" th:value="${movie.id}">
-						<label for="city" class="form-label">Theaters</label>
+						<label for="theaters" class="form-label">Theaters</label>
 						<select class="form-select" name="theaterId">
 							<option>Select to this teather</option>
-							<option th:each="th:${theaters}"
-								 th:value="${th.id}" th:text="${th.name}">
+							<option th:each="th:${theaters}" th:value="${th.id}" th:text="${th.name}">
 							</option>
 						</select>
 						<span class="text-danger"></span>
 						<button type="submit" class="btn btn-primary btn-sm mt-3">Add</button>
+						<div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 
 </html>

@@ -57,7 +57,8 @@
 								<div th:if="${theater.id != 0}"><label for="city" class="form-label">City</label>
 									<select class="form-select" name="city">
 										<option>Select</option>
-										<option th:selected="${city.id} == ${theater.city.id} ? ''" th:each="city:${cities}" th:value="${city.id}" th:text="${city.name}">
+										<option th:selected="${city.id} == ${theater.city.id} ? ''"
+											th:each="city:${cities}" th:value="${city.id}" th:text="${city.name}">
 										</option>
 									</select>
 								</div>
