@@ -74,7 +74,22 @@ public class DistopiaOnLineApplication implements CommandLineRunner {
 //		});
 
 
-
+//		Movie movie = movieRepository.getById((long) 15);
+//		System.out.println(movie.getId() + " " + movie.getTitle());
+//	
+//		
+//		Theater theater = theaterRepository.getById((long) 1);
+//		System.out.println(theater.getId() + " " + theater.getName());
+//		
+//		theater.getMovies().forEach(m -> {
+//			System.out.println(m.getId() + " " + m.getTitle());
+//		});
+//		
+//		theater.getMovies().add(movie);
+//		theaterRepository.save(theater);
+//		theater.getMovies().forEach(m -> {
+//			System.out.println(m.getId() + " " + m.getTitle());
+//		});
 	}
 
 }

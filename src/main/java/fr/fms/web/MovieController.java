@@ -2,18 +2,14 @@ package fr.fms.web;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import fr.fms.business.IBusinessImpl;
 import fr.fms.entities.Movie;
@@ -76,22 +72,15 @@ public class MovieController {
 
 	@PostMapping("/addMovieToTheaters")
 	public String addMovieToTheaters(@RequestParam(name = "movie", defaultValue = "0") long movieId,
-			@RequestParam(name = "id", defaultValue = "0") long id, Model model, @Valid Theater theater,
-			BindingResult bindingResult, RedirectAttributes attributes) {
-
+			@RequestParam(name = "id", defaultValue = "0") long id, Model model) {
 		try {
-			if (bindingResult.hasErrors()) {
-				return "redirect:/admin/movie/edit/" + id;
-			}
-
-			Movie movieToAdd = iBusinessImpl.getOneMovie(movieId);
-			theater.getMovies().add(movieToAdd);
-			movieToAdd.getTheaters().add(theater);
+			Theater theater = iBusinessImpl.getOneTheater(id);
+			Movie movie = iBusinessImpl.getOneMovie(movieId);
+			theater.getMovies().add(movie);
 			iBusinessImpl.saveTheater(theater);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return "redirect:/admin/movie/edit/" + theater.getId();
+		 return "redirect:/admin/movie/edit/" + id;
 	}
 }

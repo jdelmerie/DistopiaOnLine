@@ -1,7 +1,7 @@
 package fr.fms.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -55,7 +55,7 @@ public class Theater implements Serializable {
 	private List<Room> rooms; // un ciné est liée à plusieurs salles
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private Collection<Movie> movies;
+	private List<Movie> movies = new ArrayList<Movie>();
 
 	@Override
 	public String toString() {

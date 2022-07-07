@@ -11,24 +11,82 @@ import fr.fms.entities.Theater;
 
 @Service
 public interface IBusiness {
+	
+	/**
+	 * List of all the cities
+	 * @return
+	 * @throws Exception
+	 */
 	public List<City> getAllCities() throws Exception;
-
+	
+	/**
+	 * List of all theaters by page and search
+	 * @param search
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
 	public Page<Theater> getTheatersPages(String search, int page) throws Exception;
 
+	/**
+	 * Page of theaters by cities
+	 * @param cityId
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
 	public Page<Theater> getTheatersPagesByCity(long cityId, int page) throws Exception;
-	
+
+	/**
+	 * Page of all movies
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
 	public Page<Movie> getAllMoviesPage(int page) throws Exception;
-	
-	
+
+	/**
+	 * List of all movies
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Movie> getAllMovies() throws Exception;
-	
+
+	/**
+	 * Return a city by id
+	 * @param id
+	 * @return
+	 */
 	public City getCity(long id);
+
 	
+	/**
+	 * Save a theater
+	 * @param theater
+	 * @throws Exception
+	 */
 	public void saveTheater(Theater theater) throws Exception;
-	
+
+	/**
+	 * Save a city
+	 * @param city
+	 * @throws Exception
+	 */
 	public void saveCity(City city) throws Exception;
-	
+
+	/**
+	 * Return a theater by id
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	public Theater getOneTheater(long id) throws Exception;
-	
+
+	/**
+	 * Return a movie by id
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	public Movie getOneMovie(long id) throws Exception;
 }
