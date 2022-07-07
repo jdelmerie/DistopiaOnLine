@@ -2,7 +2,6 @@ package fr.fms.business;
 
 import java.util.List;
 
-import org.hibernate.query.criteria.LiteralHandlingMode;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 

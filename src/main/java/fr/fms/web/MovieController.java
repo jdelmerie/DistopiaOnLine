@@ -76,13 +76,8 @@ public class MovieController {
 		try {
 			Theater theater = iBusinessImpl.getOneTheater(theaterId);
 			Movie movie = iBusinessImpl.getOneMovie(movieId);
-
-//			movie.getTheaters().forEach(m -> System.out.println("avant : " +  m.getName()));
-
 			movie.getTheaters().add(theater);
-
-//			movie.getTheaters().forEach(m -> System.out.println("après : " +  m.getName()));
-
+			theater.getMovies().add(movie);
 			iBusinessImpl.saveMovie(movie);
 
 		} catch (Exception e) {

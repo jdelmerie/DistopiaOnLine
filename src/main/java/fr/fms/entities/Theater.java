@@ -54,7 +54,7 @@ public class Theater implements Serializable {
 	@OneToMany(mappedBy = "theater")
 	private List<Room> rooms; // un ciné est liée à plusieurs salles
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<Movie> movies = new ArrayList<Movie>();
 
 	@Override

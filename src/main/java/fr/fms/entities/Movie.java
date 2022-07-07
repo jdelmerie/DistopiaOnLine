@@ -48,7 +48,7 @@ public class Movie implements Serializable {
 	@NotBlank
 	private String duration;
 	
-	@ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "movies", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Theater> theaters = new ArrayList<Theater>();;
 
 	@Override
