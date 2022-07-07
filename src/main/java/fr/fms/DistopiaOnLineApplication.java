@@ -1,11 +1,17 @@
 package fr.fms;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import fr.fms.dao.CityRepository;
+import fr.fms.dao.MovieRepository;
 import fr.fms.dao.RoleRepository;
 import fr.fms.dao.TheaterRepository;
 import fr.fms.dao.UsersRepository;
@@ -28,6 +34,9 @@ public class DistopiaOnLineApplication implements CommandLineRunner {
 	@Autowired
 	TheaterRepository theaterRepository;
 
+	@Autowired
+	MovieRepository movieRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(DistopiaOnLineApplication.class, args);
 	}
@@ -47,10 +56,24 @@ public class DistopiaOnLineApplication implements CommandLineRunner {
 //		user.getRoles().forEach(r -> System.out.println(r));
 //
 //		Theater theater = theaterRepository.findById((long) 10).get();
-//		System.out.println( theater.getMovies().size());
+//		System.out.println( theater.getMovies(). size());
 //		for (Movie movie : theater.getMovies()) {
 //			System.out.println(movie);
 //		}
+
+//		List<Movie> movies = movieRepository.findAll();
+//		
+//		List<Theater> theaters = new ArrayList<Theater>();
+//		
+//		movies.forEach(movie -> {
+//			System.out.println(movie.getTheaters().size());
+//			
+//			movie.getTheaters().forEach(th -> {
+//				System.out.println(th.getId());
+//			});
+//		});
+
+
 
 	}
 

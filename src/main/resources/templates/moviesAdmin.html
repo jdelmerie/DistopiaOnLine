@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${title}"></title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="container mt-5">
+		<ul class="nav nav-pills nav-fill" sec:authorize="hasRole('ADMIN')">
+			<li class="nav-item pe-2">
+				<a class="nav-link" th:href="@{/admin}">Theaters</a>
+			</li>
+			<li class="nav-item pe-2">
+				<a class="nav-link" th:href="@{/admin/cities}">Cities</a>
+			</li>
+			<li class="nav-item pe-2">
+				<a class="nav-link active" th:href="@{/admin/movies}">Movies per theater</a>
+			</li>
+		</ul>
+
+		<div class="mt-5">
+			<div class="col-6 mb-3">
+				<h1 th:text="${title}"></h1>
+			</div>
+
+			<div class="mt-4" th:if="${theaters.empty}">
+				N/A
+			</div>
+			<!--<div class="row">
+				<div class="col-sm-3 mb-3" th:each="movie:${movies}">
+					<div class="card h-100">
+						<img th:src="@{/img/}+${movie.poster}" class="card-img-top">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${movie.title}"></h5>
+							<p class="card-text">Duration : <span th:text="${movie.duration}"></span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<nav aria-label="Page navigation example">
+				<ul class="pagination pagination-sm">
+					<li class="page-item" th:class="${currentPage == status.index+1 ? 'active' : ''}"
+						th:each="page, status:${pages}">
+						<a class="page-link" th:href="@{/movies(page=${status.index+1})}"
+							th:text="${status.index+1}"></a>
+					</li>
+				</ul>
+			</nav>-->
+			<table class="table">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col" class="text-center"></th>
+						<th scope="col">Theaters</th>
+						<th scope="col" class="text-center">N° Rooms</th>
+						<th scope="col">Movies</th>
+						<th scope="col"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="theater:${theaters}">
+						<th scope="col" class="text-center" th:text="${theater.id}"></th>
+						<td th:text="${theater.name} + ' - ' + ${theater.city.name}"></td>
+						<td th:text=${theater.numberOfRooms} class="text-center"></td>
+						<td>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item" th:each="movie:${theater.movies}" th:text="${movie.title}"></li>					
+							</ul>
+						</td>
+						<td>
+							<a th:href="@{'/admin/movie/edit/' + ${theater.id}}" class="btn btn-sm btn-warning"><i
+									class="far fa-edit"></i></a>
+							<a href="" class="btn btn-sm btn-danger disabled"><i class="far fa-trash-alt"></i></a>
+							<!--<select name="movies" class="form-select">
+								<option>Add a movie</option>
+								<option th:each="movie:${movies}" th:text="${movie.title}"></option>
+							</select>-->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<nav aria-label="Page navigation example">
+				<ul class="pagination pagination-sm">
+					<li class="page-item" th:class="${currentPage == status.index+1 ? 'active' : ''}"
+						th:each="page, status:${pages}">
+						<a class="page-link" th:href="@{/admin/movies(page=${status.index+1}, search=${search})}"
+							th:text="${status.index+1}"></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</body>
+
+</html>

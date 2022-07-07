@@ -65,11 +65,15 @@ public class IBusinessImpl implements IBusiness {
 	public Page<Movie> getAllMoviesPage(int page) throws Exception {
 		return movieRepository.findAll(PageRequest.of(page -1, 8));
 	}
+	
+	@Override
+	public List<Movie> getAllMovies() throws Exception {
+		return movieRepository.findAll();
+	}
 
 	@Override
-	public Page<Movie> getAllMoviesByTheater(long theaterId, int page) throws Exception {
-//		return movieRepository.findByTheater(theaterId, PageRequest.of(page -1, 8));
-		return null;
+	public Movie getOneMovie(long id) throws Exception {
+		return movieRepository.getById(id);
 	}
 
 

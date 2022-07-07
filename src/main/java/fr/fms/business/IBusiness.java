@@ -19,7 +19,8 @@ public interface IBusiness {
 	
 	public Page<Movie> getAllMoviesPage(int page) throws Exception;
 	
-	public Page<Movie> getAllMoviesByTheater(long theaterId, int page) throws Exception;
+	
+	public List<Movie> getAllMovies() throws Exception;
 	
 	public City getCity(long id);
 	
@@ -28,4 +29,6 @@ public interface IBusiness {
 	public void saveCity(City city) throws Exception;
 	
 	public Theater getOneTheater(long id) throws Exception;
+	
+	public Movie getOneMovie(long id) throws Exception;
 }
