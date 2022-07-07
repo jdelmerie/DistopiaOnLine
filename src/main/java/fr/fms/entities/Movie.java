@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,23 +32,23 @@ public class Movie implements Serializable {
 
 	@NotNull
 	@NotBlank
-	@Size(min = 2)
+	@Size(min = 2, max = 100)
 	private String title;
 	
 	@NotNull
 	@NotBlank
-	@Size(min = 2)
+	@Size(min = 2, max = 500)
 	private String description;
 	
 	@NotNull
 	@NotBlank
-	private String poster;
+	private String poster = "noimage.png";
 	
 	@NotNull
 	@NotBlank
 	private String duration;
 	
-	@ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "movies", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<Theater> theaters = new ArrayList<Theater>();;
 
 	@Override

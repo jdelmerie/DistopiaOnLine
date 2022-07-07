@@ -17,7 +17,7 @@
 				<a class="nav-link" th:href="@{/admin/cities}">Cities</a>
 			</li>
 			<li class="nav-item pe-2">
-				<a class="nav-link active" th:href="@{/admin/movies}">Movies per theater</a>
+				<a class="nav-link active" th:href="@{/admin/movies}">Movies</a>
 			</li>
 		</ul>
 
@@ -26,10 +26,10 @@
 				<div class="col-10">
 					<h2 class="mb-3" th:text="${title}"></h2>
 				</div>
-				<div class="col-2"><a class="btn btn-primary btn-sm">Add a movie</a></div>
+				<div class="col-2"><a th:href="@{/admin/movie/add}" class="btn btn-primary btn-sm">Add a movie</a></div>
 			</div>
 
-			<div class="mt-4" th:if="${theaters.empty}">
+			<div class="mt-4" th:if="${movies.empty}">
 				N/A
 			</div>
 
@@ -37,25 +37,25 @@
 				<thead class="table-dark">
 					<tr>
 						<th scope="col" class="text-center"></th>
-						<th scope="col">Theaters</th>
-						<th scope="col" class="text-center">N° Rooms</th>
 						<th scope="col">Movies</th>
-						<th scope="col"></th>
+						<th scope="col">Theaters</th>
+						<th scope="col" class="text-center"></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="theater:${theaters}">
-						<th scope="col" class="text-center" th:text="${theater.id}"></th>
-						<td th:text="${theater.name} + ' - ' + ${theater.city.name}"></td>
-						<td th:text=${theater.numberOfRooms} class="text-center"></td>
+					<tr th:each="movie:${movies}">
+						<th scope="col" class="text-center" th:text="${movie.id}"></th>
+						<td th:text="${movie.title}"></td>
 						<td>
 							<ul class="list-group list-group-flush">
-								<li class="list-group-item" th:each="movie:${theater.movies}" th:text="${movie.title}"></li>					
+								<li class="list-group-item" th:each="th:${movie.theaters}" th:text="${th.name}"></li>
 							</ul>
 						</td>
-						<td>
-							<a th:href="@{'/admin/movie/edit/' + ${theater.id}}" class="btn btn-sm btn-warning"><i
+						<td class="text-center">
+							<a th:href="@{'/admin/movie/addTheater/' + ${movie.id}}" class="btn btn-sm btn-success">Add to a theater</a>
+								<a class="btn btn-sm btn-warning" th:href="@{'/admin/movie/edit/' + ${movie.id}}"><i
 									class="far fa-edit"></i></a>
+							<a th:href="@{/admin/movie/delete(id=${movie.id}, page=${currentPage})}" class="btn btn-sm btn-danger"  onclick="return confirm('Are you sure ?')"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
 				</tbody>
@@ -65,7 +65,7 @@
 				<ul class="pagination pagination-sm">
 					<li class="page-item" th:class="${currentPage == status.index+1 ? 'active' : ''}"
 						th:each="page, status:${pages}">
-						<a class="page-link" th:href="@{/admin/movies(page=${status.index+1}, search=${search})}"
+						<a class="page-link" th:href="@{/admin/movies(page=${status.index+1})}"
 							th:text="${status.index+1}"></a>
 					</li>
 				</ul>

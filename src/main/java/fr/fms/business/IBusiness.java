@@ -2,6 +2,7 @@ package fr.fms.business;
 
 import java.util.List;
 
+import org.hibernate.query.criteria.LiteralHandlingMode;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,13 @@ import fr.fms.entities.Theater;
 
 @Service
 public interface IBusiness {
+	
+	/**
+	 * List of all theaters
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Theater> getAllTheaters() throws Exception;
 	
 	/**
 	 * List of all the cities
@@ -68,6 +76,13 @@ public interface IBusiness {
 	public void saveTheater(Theater theater) throws Exception;
 
 	/**
+	 * Save a movie
+	 * @param movie
+	 * @throws Exception
+	 */
+	public void saveMovie(Movie movie) throws Exception;
+	
+	/**
 	 * Save a city
 	 * @param city
 	 * @throws Exception
@@ -89,4 +104,11 @@ public interface IBusiness {
 	 * @throws Exception
 	 */
 	public Movie getOneMovie(long id) throws Exception;
+	
+	/**
+	 * Delete a movie
+	 * @param id
+	 * @throws Exception
+	 */
+	public void deleteMovie(long id) throws Exception;
 }
