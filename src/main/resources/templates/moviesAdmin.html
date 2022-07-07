@@ -48,14 +48,18 @@
 						<td th:text="${movie.title}"></td>
 						<td>
 							<ul class="list-group list-group-flush">
+								<li class="list-group-item text-danger" th:if="${movie.theaters.empty}">N/A</li>
 								<li class="list-group-item" th:each="th:${movie.theaters}" th:text="${th.name}"></li>
 							</ul>
 						</td>
 						<td class="text-center">
-							<a th:href="@{'/admin/movie/addTheater/' + ${movie.id}}" class="btn btn-sm btn-success">Add to a theater</a>
-								<a class="btn btn-sm btn-warning" th:href="@{'/admin/movie/edit/' + ${movie.id}}"><i
+							<a th:href="@{'/admin/movie/addTheater/' + ${movie.id}}" class="btn btn-sm btn-success">Add
+								to a theater</a>
+							<a class="btn btn-sm btn-warning" th:href="@{'/admin/movie/edit/' + ${movie.id}}"><i
 									class="far fa-edit"></i></a>
-							<a th:href="@{/admin/movie/delete(id=${movie.id}, page=${currentPage})}" class="btn btn-sm btn-danger"  onclick="return confirm('Are you sure ?')"><i class="far fa-trash-alt"></i></a>
+							<a th:href="@{/admin/movie/delete(id=${movie.id}, page=${currentPage})}"
+								class="btn btn-sm btn-danger" onclick="return confirm('Are you sure ?')"><i
+									class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
 				</tbody>

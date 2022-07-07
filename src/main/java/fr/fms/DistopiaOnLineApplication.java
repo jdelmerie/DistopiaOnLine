@@ -1,10 +1,5 @@
 package fr.fms;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,9 +10,6 @@ import fr.fms.dao.MovieRepository;
 import fr.fms.dao.RoleRepository;
 import fr.fms.dao.TheaterRepository;
 import fr.fms.dao.UsersRepository;
-import fr.fms.entities.Movie;
-import fr.fms.entities.Theater;
-import fr.fms.entities.Users;
 
 @SpringBootApplication
 public class DistopiaOnLineApplication implements CommandLineRunner {
